@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     Future.delayed(Duration.zero, () {
       // Provider.of<McuDataProvider>(context, listen: false).setLoading(true);
       if (mounted) {
-        Provider.of<McuDataProvider>(context, listen: false).getData();
+        Provider.of<McuDataProvider>(context, listen: false).getData(context);
       }
       // .then(
       //     (value) => Provider.of<McuDataProvider>(context, listen: false)

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../../../config/environment_config.dart';
+import '../../../../../core/constants/api_constants/api_queries.dart';
 import '../../model/mcu_recommendation_model.dart';
 
 Future<List<McuRecommendation>?> getMcuRecommendation(int id) async {
-  String url = "https://mcuapi.herokuapp.com/api/v1/movies/$id";
+  String url =
+      AppEnvironment.serviceBaseUrl +
+      ApiQueries.moviesDetailsQueryWithId(id: id);
   Uri uri = Uri.parse(url);
   List<McuRecommendation> mcuRecommendation = [];
 

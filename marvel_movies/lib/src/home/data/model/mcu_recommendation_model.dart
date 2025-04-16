@@ -78,7 +78,9 @@ class McuRecommendation {
     "id": id,
     "title": title,
     "release_date":
-        "${releaseDate?.year.toString().padLeft(4, '0')}-${releaseDate?.month.toString().padLeft(2, '0')}-${releaseDate?.day.toString().padLeft(2, '0')}",
+        releaseDate == null
+            ? null
+            : "${releaseDate?.year.toString().padLeft(4, '0')}-${releaseDate?.month.toString().padLeft(2, '0')}-${releaseDate?.day.toString().padLeft(2, '0')}",
     "box_office": boxOffice,
     "duration": duration,
     "overview": overview,

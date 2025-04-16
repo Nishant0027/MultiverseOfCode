@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../data/model/mcu_model.dart';
 import '../../data/model/mcu_recommendation_model.dart';
-import '../../data/repostiory/local/database/database_helper.dart';
-import '../../data/repostiory/local/database/database_model.dart';
 import '../../data/repostiory/remote/mcu_recommend_service.dart';
 import '../../data/repostiory/remote/mcu_service.dart';
 
@@ -25,14 +23,41 @@ class McuDataProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future getData() async {
+  Future getData(BuildContext context) async {
     setLoading(true);
 
-    await getMcuData().then((value) {
-      value
-          .map(
-            ((e) => DBHelper().insertData(
-              DbModel(
+    await getMcuData(context).then((value) {
+      // value
+      //     .map(
+      //       ((e) => DBHelper().insertData(
+      //         DbModel(
+      //           id: e.id,
+      //           title: e.title,
+      //           releaseDate: e.releaseDate,
+      //           boxOffice: e.boxOffice,
+      //           duration: e.duration,
+      //           overview: e.overview,
+      //           coverUrl: e.coverUrl,
+      //           trailerUrl: e.trailerUrl,
+      //           directedBy: e.directedBy,
+      //           phase: e.phase,
+      //           saga: e.saga,
+      //           chronology: e.chronology,
+      //           postCreditScenes: e.postCreditScenes,
+      //           imdbId: e.imdbId,
+      //         ),
+      //       )),
+      //     )
+      //     .toList();
+
+      // DBHelper().retriveData().then((value) {
+      // if (value != null) {
+      setLoading(false);
+
+      setMcuModelData(
+        value
+            .map(
+              (e) => Data(
                 id: e.id,
                 title: e.title,
                 releaseDate: e.releaseDate,
@@ -48,38 +73,11 @@ class McuDataProvider with ChangeNotifier {
                 postCreditScenes: e.postCreditScenes,
                 imdbId: e.imdbId,
               ),
-            )),
-          )
-          .toList();
-
-      DBHelper().retriveData().then((value) {
-        if (value != null) {
-          setLoading(false);
-
-          setMcuModelData(
-            value
-                .map(
-                  (e) => Data(
-                    id: e.id,
-                    title: e.title,
-                    releaseDate: e.releaseDate,
-                    boxOffice: e.boxOffice,
-                    duration: e.duration,
-                    overview: e.overview,
-                    coverUrl: e.coverUrl,
-                    trailerUrl: e.trailerUrl,
-                    directedBy: e.directedBy,
-                    phase: e.phase,
-                    saga: e.saga,
-                    chronology: e.chronology,
-                    postCreditScenes: e.postCreditScenes,
-                    imdbId: e.imdbId,
-                  ),
-                )
-                .toList(),
-          );
-        }
-      });
+            )
+            .toList(),
+      );
+      // }
+      // });
     });
     notifyListeners();
   }

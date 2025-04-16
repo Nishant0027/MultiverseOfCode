@@ -1,11 +1,13 @@
 class ApiConstants {
   ApiConstants._();
+  static const String _apiVersion = "api/v1/";
 
-  /// Service Calls Related Base URLs
+  /// Swagger Contractor Link: https://mcuapi.herokuapp.com/docs/#/
+
   static const String serviceDevBaseUrl =
-      "https://dev-1tfmv2-services.1rivet.com/";
+      "https://mcuapi.herokuapp.com/$_apiVersion";
   static const String serviceQaBaseUrl =
-      "https://qa-1tfmv2-services.1rivet.com/";
+      "https://mcuapi.herokuapp.com/$_apiVersion";
   static const String serviceProdBaseUrl =
-      "https://1tfmv2-services.1rivet.com/";
+      "https://mcuapi.herokuapp.com/$_apiVersion";
 }

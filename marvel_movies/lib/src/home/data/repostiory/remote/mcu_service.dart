@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../../../config/environment_config.dart';
+import '../../../../../core/constants/api_constants/api_queries.dart';
 import '../../model/mcu_model.dart';
 
-Future<List<Data>> getMcuData() async {
-  String url = "https://mcuapi.herokuapp.com/api/v1/movies";
+Future<List<Data>> getMcuData(BuildContext context) async {
+  String url = AppEnvironment.serviceBaseUrl + ApiQueries.moviesListQuery();
   Uri uri = Uri.parse(url);
   List<Data> mcuModel = [
     Data(
@@ -29,6 +31,17 @@ Future<List<Data>> getMcuData() async {
       if (response.statusCode == 200) {
         var res = mcuModelFromJson(response.body);
         mcuModel = res.data;
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                "Error: ${response.statusCode}: ${response.reasonPhrase}",
+              ),
+            ),
+          );
+        }
       }
     } catch (e) {
       debugPrint("EXCEPTION : $e");

@@ -45,7 +45,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ///
       final routeArgs =
-          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
       setState(() {
         id = routeArgs['id'];
         Provider.of<McuDataProvider>(context, listen: false).getRecent(id);
@@ -96,17 +96,21 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                     return [
                       SliverAppBar(
                         elevation: 0,
-                        leading: IconButton(
-                          onPressed: () {
-                            Provider.of<McuDataProvider>(
-                              context,
-                              listen: false,
-                            ).setMcuRecommendation([]);
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back_ios_new_rounded,
-                            color: Colors.white,
+                        leading: Card(
+                          color: Colors.black12,
+                          shape: CircleBorder(),
+                          child: IconButton(
+                            onPressed: () {
+                              Provider.of<McuDataProvider>(
+                                context,
+                                listen: false,
+                              ).setMcuRecommendation([]);
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new_rounded,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         backgroundColor: Colors.transparent,
@@ -134,18 +138,19 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                       ),
                     ];
                   },
-                  body: Stack(
-                    children: [
-                      /// IRON MAN: L59Gm\$V?Afbb~WD%NfaKM]Na9ZIU
-                      /// Doctor Strange: LSIqu|xaEQjF~VS5M{xC5YNHROt6
-                      const BlurHash(hash: AppConstants.imageHashValue),
-                      DragHandleWidget(),
-                      SingleChildScrollView(
-                        child: SafeArea(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              // top: MediaQueryData.fromView(window).padding.top,
-                            ),
+                  body: Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Stack(
+                      children: [
+                        /// IRON MAN: L59Gm\$V?Afbb~WD%NfaKM]Na9ZIU
+                        /// Doctor Strange: LSIqu|xaEQjF~VS5M{xC5YNHROt6
+                        const BlurHash(hash: AppConstants.imageHashValue),
+                        DragHandleWidget(),
+                        SingleChildScrollView(
+                          child: SafeArea(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -157,7 +162,6 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    spacing: 20,
                                     children: [
                                       /// MOVIE TITLE
                                       Text(
@@ -169,7 +173,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                       ),
 
                                       /// MOVIE RELEASE DATE
-                                      provider.releaseDate.isEmpty
+                                      isReleaseDateEmpty
                                           ? SizedBox.shrink()
                                           : Align(
                                             alignment: Alignment.topRight,
@@ -183,7 +187,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                           ),
 
                                       /// MOVIE Chronology
-                                      provider.chronology == 0
+                                      isCoronologyEmpty
                                           ? SizedBox.shrink()
                                           : TitleValueWidget(
                                             title: AppConstants.chronology,
@@ -192,7 +196,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                           ),
 
                                       /// DURATION
-                                      provider.duration == 0
+                                      isDurationEmpty
                                           ? SizedBox.shrink()
                                           : TitleValueWidget(
                                             title: AppConstants.duration,
@@ -201,7 +205,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                           ),
 
                                       /// OVERVIEW
-                                      provider.overview.isEmpty
+                                      isOverviewEmpty
                                           ? SizedBox.shrink()
                                           : TitleValueWidget(
                                             title: AppConstants.overview,
@@ -210,7 +214,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                           ),
 
                                       /// DIRECTED BY
-                                      provider.directedBy.isEmpty
+                                      isDirectedByEmpty
                                           ? SizedBox.shrink()
                                           : TitleValueWidget(
                                             title: AppConstants.directedBy,
@@ -218,7 +222,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                           ),
 
                                       /// POST CREDIT SCENES
-                                      provider.postCreditScenes == 0
+                                      isPostCreditScenesEmpty
                                           ? SizedBox.shrink()
                                           : TitleValueWidget(
                                             title: AppConstants.postCredits,
@@ -316,16 +320,29 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                             },
                                           ),
                                 ),
+
                                 // const SizedBox(height: 80),
                               ],
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
       ),
     );
   }
+
+  bool get isPostCreditScenesEmpty => provider.postCreditScenes == 0;
+
+  bool get isDirectedByEmpty => provider.directedBy.isEmpty;
+
+  bool get isOverviewEmpty => provider.overview.isEmpty;
+
+  bool get isDurationEmpty => provider.duration == 0;
+
+  bool get isCoronologyEmpty => provider.chronology == 0;
+
+  bool get isReleaseDateEmpty => provider.releaseDate.isEmpty;
 }

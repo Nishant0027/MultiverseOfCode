@@ -18,26 +18,29 @@ class TitleValueWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      textAlign: TextAlign.justify,
-      text: TextSpan(
-        style: const TextStyle(
-          color: Colors.amber,
-          fontWeight: FontWeight.bold,
-        ),
-        text: title,
-        children: [
-          TextSpan(
-            text: value,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w400,
-              wordSpacing: wordSpacing,
-              letterSpacing: letterSpacing,
-              height: height,
-            ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 16),
+      child: RichText(
+        textAlign: TextAlign.justify,
+        text: TextSpan(
+          style: const TextStyle(
+            color: Colors.amber,
+            fontWeight: FontWeight.bold,
           ),
-        ],
+          text: title,
+          children: [
+            TextSpan(
+              text: value,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+                wordSpacing: wordSpacing,
+                letterSpacing: letterSpacing,
+                height: height,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
