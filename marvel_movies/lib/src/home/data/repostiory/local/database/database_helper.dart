@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -58,7 +59,7 @@ class DBHelper {
           conflictAlgorithm: ConflictAlgorithm.replace,
         )
         .then((value) {
-          print("DBVALUE: $value");
+          debugPrint("DBVALUE: $value");
         });
   }
 

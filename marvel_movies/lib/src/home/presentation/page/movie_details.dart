@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_constants/app_constants.dart';
+import '../../../../core/extensions/date_extension.dart';
+import '../../../../core/extensions/string_extension.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../../core/widgets/custom_circular_indicator.dart';
 import '../../data/model/mcu_model.dart';
 import '../provider/provider.dart';
 import '../widget/drag_handle_widget.dart';
+import '../widget/title_text_widget.dart';
 
 class MoviesDetailsScreen extends StatefulWidget {
   const MoviesDetailsScreen({super.key});
@@ -155,211 +157,95 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
+                                    spacing: 20,
                                     children: [
                                       /// MOVIE TITLE
                                       Text(
                                         provider.title,
                                         style: const TextStyle(
-                                          fontSize: 30,
+                                          fontSize: 28,
                                           color: Colors.white,
                                         ),
                                       ),
 
                                       /// MOVIE RELEASE DATE
-                                      provider.releaseDate == '' ||
-                                              provider.releaseDate.isEmpty
-                                          ? Container()
-                                          : const SizedBox(height: 20),
-                                      provider.releaseDate == '' ||
-                                              provider.releaseDate.isEmpty
-                                          ? Container()
+                                      provider.releaseDate.isEmpty
+                                          ? SizedBox.shrink()
                                           : Align(
                                             alignment: Alignment.topRight,
-                                            child: RichText(
-                                              text: TextSpan(
-                                                style: const TextStyle(
-                                                  color: Colors.amber,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                                text: AppConstants.releaseDate,
-                                                children: [
-                                                  TextSpan(
-                                                    text: DateFormat(
-                                                      'dd, MMM yyyy',
-                                                    ).format(
-                                                      DateTime.parse(
-                                                        provider.releaseDate,
-                                                      ),
-                                                    ),
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                            child: TitleValueWidget(
+                                              title: AppConstants.releaseDate,
+                                              value:
+                                                  provider.releaseDate
+                                                      .parseStringtoDate()
+                                                      .formatddMMMyyyy(),
                                             ),
                                           ),
 
                                       /// MOVIE Chronology
                                       provider.chronology == 0
-                                          ? Container()
-                                          : RichText(
-                                            text: TextSpan(
-                                              style: const TextStyle(
-                                                color: Colors.amber,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              text: AppConstants.chronology,
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                      provider.chronology
-                                                          .toString(),
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                          ? SizedBox.shrink()
+                                          : TitleValueWidget(
+                                            title: AppConstants.chronology,
+                                            value:
+                                                provider.chronology.toString(),
                                           ),
 
                                       /// DURATION
                                       provider.duration == 0
-                                          ? Container()
-                                          : const SizedBox(height: 20),
-                                      provider.duration == 0
-                                          ? Container()
-                                          : RichText(
-                                            text: TextSpan(
-                                              style: const TextStyle(
-                                                color: Colors.amber,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              text: AppConstants.duration,
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                      provider.duration
-                                                          .toString(),
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                          ? SizedBox.shrink()
+                                          : TitleValueWidget(
+                                            title: AppConstants.duration,
+                                            value:
+                                                "${(provider.duration ~/ 60)} hrs ${(provider.duration % 60)} minutes",
                                           ),
 
                                       /// OVERVIEW
                                       provider.overview.isEmpty
-                                          ? Container()
-                                          : const SizedBox(height: 20),
-                                      provider.overview.isEmpty
-                                          ? Container()
-                                          : RichText(
-                                            text: TextSpan(
-                                              style: const TextStyle(
-                                                color: Colors.amber,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              text: AppConstants.overview,
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                      provider.overview
-                                                          .toString(),
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w400,
-                                                    wordSpacing: 2,
-                                                    height: 1.4,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                          ? SizedBox.shrink()
+                                          : TitleValueWidget(
+                                            title: AppConstants.overview,
+                                            value: provider.overview.toString(),
+                                            height: 1.4,
                                           ),
 
                                       /// DIRECTED BY
                                       provider.directedBy.isEmpty
-                                          ? Container()
-                                          : const SizedBox(height: 20),
-                                      provider.directedBy.isEmpty
-                                          ? Container()
-                                          : RichText(
-                                            text: TextSpan(
-                                              style: const TextStyle(
-                                                color: Colors.amber,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              text: AppConstants.directedBy,
-                                              children: [
-                                                TextSpan(
-                                                  text: provider.directedBy,
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                          ? SizedBox.shrink()
+                                          : TitleValueWidget(
+                                            title: AppConstants.directedBy,
+                                            value: provider.directedBy,
                                           ),
 
                                       /// POST CREDIT SCENES
                                       provider.postCreditScenes == 0
-                                          ? Container()
-                                          : const SizedBox(height: 20),
-                                      provider.postCreditScenes == 0
-                                          ? Container()
-                                          : RichText(
-                                            text: TextSpan(
-                                              style: const TextStyle(
-                                                color: Colors.amber,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              text: AppConstants.postCredits,
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                      " ${provider.postCreditScenes}",
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                          ? SizedBox.shrink()
+                                          : TitleValueWidget(
+                                            title: AppConstants.postCredits,
+                                            value:
+                                                " ${provider.postCreditScenes}",
                                           ),
-
-                                      const SizedBox(height: 20),
                                     ],
                                   ),
                                 ),
 
                                 /// Trailer video player
                                 // VideoPlayerWidget(trailerUrl: provider.trailerUrl),
-                                const SizedBox(height: 20),
+                                // const SizedBox(height: 20),
 
                                 /// Related Movies Recommendation
-                                /// Text
                                 recommendedMovies.isEmpty
-                                    ? Container()
+                                    ? SizedBox.shrink()
                                     : const Padding(
                                       padding: EdgeInsets.symmetric(
                                         horizontal: 15,
                                       ),
-                                      child: Text(
-                                        AppConstants.recommendedMovies,
-                                        style: TextStyle(
-                                          color: Colors.amber,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                      child: TitleValueWidget(
+                                        title: AppConstants.recommendedMovies,
                                       ),
                                     ),
 
-                                /// List View Horizontal
+                                /// Recommendations Horizontal List View
                                 Container(
                                   height: 200,
                                   width: deviceData.size.width,
@@ -430,7 +316,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                             },
                                           ),
                                 ),
-                                const SizedBox(height: 80),
+                                // const SizedBox(height: 80),
                               ],
                             ),
                           ),

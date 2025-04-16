@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:marvel_movies/core/constants/app_constants/app_constants.dart';
-
 import 'package:video_player/video_player.dart';
+
+import '../constants/app_constants/app_constants.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   final String trailerUrl;
@@ -17,7 +17,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   void initState() {
     super.initState();
     _videoPlayerController =
-        VideoPlayerController.network(widget.trailerUrl)
+        VideoPlayerController.networkUrl(Uri.parse(widget.trailerUrl))
           ..play()
           // ..addListener(() => setState(() {}))
           ..setLooping(false)

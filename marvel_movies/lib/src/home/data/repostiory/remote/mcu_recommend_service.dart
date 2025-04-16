@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:marvel_movies/src/home/data/model/mcu_recommendation_model.dart';
+
+import '../../model/mcu_recommendation_model.dart';
 
 Future<List<McuRecommendation>?> getMcuRecommendation(int id) async {
   String url = "https://mcuapi.herokuapp.com/api/v1/movies/$id";
@@ -13,7 +15,7 @@ Future<List<McuRecommendation>?> getMcuRecommendation(int id) async {
         mcuRecommendation = res.relatedMovies!;
       }
     } catch (e) {
-      print("EXCEPTION : $e");
+      debugPrint("EXCEPTION : $e");
     }
   });
   return mcuRecommendation;

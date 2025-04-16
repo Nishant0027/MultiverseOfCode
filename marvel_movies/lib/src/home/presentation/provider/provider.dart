@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:marvel_movies/src/home/data/repostiory/local/database/database_helper.dart';
-import 'package:marvel_movies/src/home/data/repostiory/local/database/database_model.dart';
-import 'package:marvel_movies/src/home/data/repostiory/remote/mcu_service.dart';
 
 import '../../data/model/mcu_model.dart';
 import '../../data/model/mcu_recommendation_model.dart';
+import '../../data/repostiory/local/database/database_helper.dart';
+import '../../data/repostiory/local/database/database_model.dart';
 import '../../data/repostiory/remote/mcu_recommend_service.dart';
+import '../../data/repostiory/remote/mcu_service.dart';
 
 class McuDataProvider with ChangeNotifier {
   bool _isLoading = false;

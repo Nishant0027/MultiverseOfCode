@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../model/mcu_model.dart';
@@ -30,7 +31,7 @@ Future<List<Data>> getMcuData() async {
         mcuModel = res.data;
       }
     } catch (e) {
-      print("EXCEPTION : $e");
+      debugPrint("EXCEPTION : $e");
     }
   });
   return mcuModel;
