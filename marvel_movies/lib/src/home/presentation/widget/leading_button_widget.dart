@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:marvel_movies/core/extensions/color_extension.dart';
 
 class LeadingButtonWidget extends StatelessWidget {
   final void Function()? onTap;
@@ -15,20 +16,26 @@ class LeadingButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap ?? () => Navigator.pop(context),
-      child: Container(
-        clipBehavior: Clip.antiAlias,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Colors.black12,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child:
-              icon ??
-              const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+      child: GestureDetector(
+        onTap: onTap ?? () => Navigator.pop(context),
+        child: Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: Colors.black.withOpactityValue(0.1),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: BackdropFilter(
+            enabled: true,
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child:
+                icon ??
+                const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: Colors.white,
+                ),
+          ),
         ),
       ),
     );

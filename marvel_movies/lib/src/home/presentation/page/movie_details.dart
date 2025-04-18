@@ -115,17 +115,18 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                   //     hash: AppConstants.imageHashValue,
                   //     image: provider.coverUrl,
                   //   ),
-                  Hero(
-                    tag: 'movie$id',
-                    child: Image.network(
-                      provider.coverUrl,
-                      errorBuilder:
-                          (context, error, stackTrace) => Center(
-                            child: Image.asset(AppConstants.placeHolderAsset),
-                          ),
-                      fit: BoxFit.cover,
-                    ),
+                  // Hero(
+                  // tag: 'movie$id',
+                  // child:
+                  Image.network(
+                    provider.coverUrl,
+                    errorBuilder:
+                        (context, error, stackTrace) => Center(
+                          child: Image.asset(AppConstants.placeHolderAsset),
+                        ),
+                    fit: BoxFit.cover,
                   ),
+                  // ),
                 ),
               ),
             ];

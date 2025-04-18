@@ -27,18 +27,18 @@ class CustomGridTileWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           child:
               coverUrl.isEmpty
-                  ? Stack(
-                    children: [Image.asset(AppConstants.placeHolderAsset)],
-                  )
-                  : Hero(
-                    // tag: 'movie${mcuData[i].id}',
-                    tag: 'movie $id',
-                    child: BlurHash(
-                      imageFit: BoxFit.fill,
-                      hash: AppConstants.imageHashValue,
-                      image: coverUrl,
-                    ),
+                  ? Image.asset(AppConstants.placeHolderAsset)
+                  :
+                  // Hero(
+                  // tag: 'movie${mcuData[i].id}',
+                  // tag: 'movie $id',
+                  // child:
+                  BlurHash(
+                    imageFit: BoxFit.fill,
+                    hash: AppConstants.imageHashValue,
+                    image: coverUrl,
                   ),
+          // ),
 
           //     FadeInImage(
           //   fit: BoxFit.cover,
