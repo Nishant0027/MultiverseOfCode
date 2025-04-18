@@ -6,6 +6,7 @@ import '../../../../core/constants/app_constants/app_constants.dart';
 import '../../../../core/extensions/date_extension.dart';
 import '../../../../core/extensions/string_extension.dart';
 import '../../../../core/routes/routes.dart';
+import '../../../../core/utility/utilities.dart';
 import '../../../../core/widgets/custom_circular_indicator.dart';
 import '../../data/model/mcu_model.dart';
 import '../provider/provider.dart';
@@ -110,15 +111,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                 backgroundColor: Colors.transparent,
                 expandedHeight: deviceData.size.height / 1.3,
                 flexibleSpace: FlexibleSpaceBar(
-                  background:
-                  // BlurHash(
-                  //     hash: AppConstants.imageHashValue,
-                  //     image: provider.coverUrl,
-                  //   ),
-                  // Hero(
-                  // tag: 'movie$id',
-                  // child:
-                  Image.network(
+                  background: Image.network(
                     provider.coverUrl,
                     errorBuilder:
                         (context, error, stackTrace) => Center(
@@ -139,7 +132,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                 /// IRON MAN: L59Gm\$V?Afbb~WD%NfaKM]Na9ZIU
                 /// Doctor Strange: LSIqu|xaEQjF~VS5M{xC5YNHROt6
                 const BlurHash(hash: AppConstants.imageHashValue),
-                // DragHandleWidget(),
+
                 SingleChildScrollView(
                   child: SafeArea(
                     child: Column(
@@ -190,7 +183,9 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                   : TitleValueWidget(
                                     title: AppConstants.duration,
                                     value:
-                                        "${(provider.duration ~/ 60)} hrs ${(provider.duration % 60)} minutes",
+                                        Utilities.computeDurationFromIntToHHmm(
+                                          provider.duration,
+                                        ),
                                   ),
 
                               /// OVERVIEW

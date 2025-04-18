@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 
-import '../../../../core/constants/app_constants/app_constants.dart';
+import '../constants/app_constants/app_constants.dart';
 
 class CustomGridTileWidget extends StatelessWidget {
   final Function() onTap;

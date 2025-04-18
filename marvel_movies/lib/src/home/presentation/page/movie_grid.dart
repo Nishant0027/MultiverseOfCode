@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import "../../../../core/routes/routes.dart";
 import '../provider/provider.dart';
-import '../widget/custom_grid_tile_widget.dart';
-import '../widget/custom_grid_view_builder_widget.dart';
+import '../../../../core/widgets/custom_grid_tile_widget.dart';
+import '../../../../core/widgets/custom_grid_view_builder_widget.dart';
 
 class MovieGrid extends StatefulWidget {
   const MovieGrid({super.key});
