@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../src/home/presentation/page/home_screen.dart';
-import '../../src/home/presentation/page/movie_details.dart';
+import '../../src/home/presentation/screen/home_screen.dart';
+import '../../src/home/presentation/screen/movie_details.dart';
 
 class Routes {
   Routes._();
