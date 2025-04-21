@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_constants/app_constants.dart';
@@ -63,14 +62,13 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
     final recommendedMovies =
         Provider.of<McuDataProvider>(context).mcuRecommendation;
     return PopScope(
-      // return WillPopScope(
-      // onWillPop: () async {
-      //   Navigator.pop(context);
-      //   return Provider.of<McuDataProvider>(
-      //     context,
-      //     listen: false,
-      //   ).setMcuRecommendation([]);
-      // },
+      onPopInvokedWithResult: (didPop, result) {
+        // Navigator.pop(context);
+        Provider.of<McuDataProvider>(
+          context,
+          listen: false,
+        ).setMcuRecommendation([]);
+      },
       child: Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: AppConstants.backgroundGrey,
@@ -79,6 +77,10 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
         // provider == null
         //     ? const CustomCircularIndicator()
         //     :
+        // CustomScrollView(
+        //   slivers: [
+        //   ],
+        // );
         NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
@@ -121,8 +123,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
               children: [
                 /// IRON MAN: L59Gm\$V?Afbb~WD%NfaKM]Na9ZIU
                 /// Doctor Strange: LSIqu|xaEQjF~VS5M{xC5YNHROt6
-                const BlurHash(hash: AppConstants.imageHashValue),
-
+                // const BlurHash(hash: AppConstants.imageHashValue),
                 SingleChildScrollView(
                   child: SafeArea(
                     child: Column(

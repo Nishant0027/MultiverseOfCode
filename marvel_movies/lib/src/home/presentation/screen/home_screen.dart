@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/provider.dart';
-import 'movies_list_screen.dart';
-import 'tv_show_list_screen.dart';
+import '../../../movies/presentation/provider/provider.dart';
+import '../../../movies/presentation/screen/movies_list_screen.dart';
+import '../../../tv_shows/presentation/screen/tv_show_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

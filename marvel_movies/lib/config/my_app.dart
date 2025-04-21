@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../core/constants/app_constants/app_constants.dart';
 import '../core/routes/routes.dart';
-import '../src/home/presentation/provider/provider.dart';
+import '../src/movies/presentation/provider/provider.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

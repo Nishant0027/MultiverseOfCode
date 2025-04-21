@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../../core/widgets/custom_grid_tile_widget.dart';
 import '../../../../core/widgets/custom_grid_view_builder_widget.dart';
 
-class TvShowScreen extends StatelessWidget {
+class TvShowScreen extends StatefulWidget {
   const TvShowScreen({super.key});
 
+  @override
+  State<TvShowScreen> createState() => _TvShowScreenState();
+}
+
+class _TvShowScreenState extends State<TvShowScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
