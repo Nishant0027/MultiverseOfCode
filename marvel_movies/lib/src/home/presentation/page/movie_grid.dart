@@ -24,8 +24,8 @@ class _MovieGridState extends State<MovieGrid> {
             var mcuData = mcuProvider.mcuModel;
 
             return CustomGridTileWidget(
-              id: mcuData[i].id,
-              coverUrl: mcuData[i].coverUrl,
+              id: mcuData[i].id ?? 0,
+              coverUrl: mcuData[i].coverUrl ?? "",
               onTap: () {
                 Navigator.pushNamed(
                   context,

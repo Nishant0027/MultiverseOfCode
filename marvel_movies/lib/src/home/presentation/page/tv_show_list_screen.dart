@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/app_constants/app_constants.dart';
+import '../../../../core/widgets/custom_grid_tile_widget.dart';
+import '../../../../core/widgets/custom_grid_view_builder_widget.dart';
 
 class TvShowScreen extends StatelessWidget {
   const TvShowScreen({super.key});
@@ -8,9 +9,17 @@ class TvShowScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppConstants.backgroundGrey,
-        title: Text("TV Shows", style: TextStyle(color: Colors.white)),
+      body: CustomGridViewBuilderWidget(
+        items: [
+          "https://res.cloudinary.com/augustomarcelo/image/upload/v1676219587/mcuapi/gallery/tv_shows/wandavision/posters/1.jpg",
+        ],
+        itemBuilder:
+            (_, index) => CustomGridTileWidget(
+              onTap: () {},
+              coverUrl:
+                  "https://res.cloudinary.com/augustomarcelo/image/upload/v1676219587/mcuapi/gallery/tv_shows/wandavision/posters/1.jpg",
+              id: 1,
+            ),
       ),
     );
   }

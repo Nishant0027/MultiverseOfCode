@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_constants/app_constants.dart';
 import '../../../../core/extensions/date_extension.dart';
+import '../../../../core/extensions/int_extension.dart';
 import '../../../../core/extensions/string_extension.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../../core/utility/utilities.dart';
@@ -23,22 +24,7 @@ class MoviesDetailsScreen extends StatefulWidget {
 class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
   int id = 0;
   int index = 0;
-  Data provider = Data(
-    id: 0,
-    title: '',
-    releaseDate: '',
-    boxOffice: '',
-    duration: 0,
-    overview: '',
-    coverUrl: '',
-    trailerUrl: '',
-    directedBy: '',
-    phase: 0,
-    saga: '',
-    chronology: 0,
-    postCreditScenes: 0,
-    imdbId: '',
-  );
+  Data provider = Data();
   @override
   void initState() {
     super.initState();
@@ -111,15 +97,19 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                 backgroundColor: Colors.transparent,
                 expandedHeight: deviceData.size.height / 1.3,
                 flexibleSpace: FlexibleSpaceBar(
-                  background: Image.network(
-                    provider.coverUrl,
-                    errorBuilder:
-                        (context, error, stackTrace) => Center(
-                          child: Image.asset(AppConstants.placeHolderAsset),
-                        ),
-                    fit: BoxFit.cover,
-                  ),
-                  // ),
+                  background:
+                      isCoverUrlEmpty
+                          ? SizedBox.shrink()
+                          : Image.network(
+                            provider.coverUrl ?? '',
+                            errorBuilder:
+                                (context, error, stackTrace) => Center(
+                                  child: Image.asset(
+                                    AppConstants.placeHolderAsset,
+                                  ),
+                                ),
+                            fit: BoxFit.cover,
+                          ),
                 ),
               ),
             ];
@@ -148,7 +138,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                             children: [
                               /// MOVIE TITLE
                               Text(
-                                provider.title,
+                                provider.title ?? "",
                                 style: const TextStyle(
                                   fontSize: 28,
                                   color: Colors.white,
@@ -164,8 +154,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                                       title: AppConstants.releaseDate,
                                       value:
                                           provider.releaseDate
-                                              .parseStringtoDate()
-                                              .formatddMMMyyyy(),
+                                              ?.formatddMMMyyyy(),
                                     ),
                                   ),
 
@@ -303,15 +292,17 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
     );
   }
 
-  bool get isPostCreditScenesEmpty => provider.postCreditScenes == 0;
+  bool get isCoverUrlEmpty => provider.coverUrl.isNullOrEmpty();
 
-  bool get isDirectedByEmpty => provider.directedBy.isEmpty;
+  bool get isPostCreditScenesEmpty => provider.postCreditScenes.isNullOrEmpty();
 
-  bool get isOverviewEmpty => provider.overview.isEmpty;
+  bool get isDirectedByEmpty => provider.directedBy.isNullOrEmpty();
 
-  bool get isDurationEmpty => provider.duration == 0;
+  bool get isOverviewEmpty => provider.overview.isNullOrEmpty();
 
-  bool get isCoronologyEmpty => provider.chronology == 0;
+  bool get isDurationEmpty => provider.duration.isNullOrEmpty();
 
-  bool get isReleaseDateEmpty => provider.releaseDate.isEmpty;
+  bool get isCoronologyEmpty => provider.chronology.isNullOrEmpty();
+
+  bool get isReleaseDateEmpty => provider.releaseDate == null;
 }
