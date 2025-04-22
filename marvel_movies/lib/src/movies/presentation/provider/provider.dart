@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../data/model/mcu_model.dart';
 import '../../data/model/mcu_recommendation_model.dart';
-import '../../data/repostiory/remote/mcu_recommend_service.dart';
-import '../../data/repostiory/remote/mcu_service.dart';
+import '../../data/repostiory/mcu_recommend_service.dart';
+import '../../data/repostiory/mcu_service.dart';
 
 class McuDataProvider with ChangeNotifier {
   bool _isLoading = false;

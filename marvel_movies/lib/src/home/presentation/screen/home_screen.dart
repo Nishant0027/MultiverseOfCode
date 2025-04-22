@@ -46,7 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
               TabBar(
                 indicatorAnimation: TabIndicatorAnimation.elastic,
                 tabs: [
-                  Tab(icon: const Icon(Icons.movie_rounded), text: 'Movies'),
+                  Tab(
+                    icon: const Icon(Icons.movie_creation_outlined),
+                    text: 'Movies',
+                  ),
                   Tab(icon: const Icon(Icons.tv), text: 'TV Shows'),
                 ],
               ),
