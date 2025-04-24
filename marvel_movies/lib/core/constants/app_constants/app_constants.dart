@@ -9,6 +9,9 @@ class AppConstants {
   static const String directedBy = "Directed By: ";
   static const String postCredits = "Number of post credits scenes: ";
   static const String recommendedMovies = "Recommeded movies: ";
+  static const String imdbRating = "IMDB Rating: ";
+  static const String seasons = "Number of Seasons: ";
+  static const String lastAiredDate = "Last Aired Date: ";
 
   /// Image Strings
   static const String placeHolderAsset = 'assets/marvel_splash-01.png';

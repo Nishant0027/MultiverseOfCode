@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import "../../../../core/routes/routes.dart";
-import '../provider/provider.dart';
 import '../../../../core/widgets/custom_grid_tile_widget.dart';
 import '../../../../core/widgets/custom_grid_view_builder_widget.dart';
+import '../provider/provider.dart';
 
 class MovieGrid extends StatefulWidget {
   const MovieGrid({super.key});
@@ -30,7 +30,7 @@ class _MovieGridState extends State<MovieGrid> {
                 Navigator.pushNamed(
                   context,
                   Routes.movieDetails,
-                  arguments: {'id': mcuData[i].id},
+                  arguments: mcuData[i],
                 );
               },
             );

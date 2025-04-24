@@ -1,5 +1,17 @@
+// To parse this JSON data, do
+//
+//     final tvShowListModel = tvShowListModelFromJson(jsonString);
+
+import 'dart:convert';
+
+TvShowListModel tvShowListModelFromJson(String str) =>
+    TvShowListModel.fromJson(json.decode(str));
+
+String tvShowListModelToJson(TvShowListModel data) =>
+    json.encode(data.toJson());
+
 class TvShowListModel {
-  final List<Datum>? data;
+  final List<TvShowData>? data;
   final int? total;
 
   TvShowListModel({this.data, this.total});
@@ -9,7 +21,9 @@ class TvShowListModel {
         data:
             json["data"] == null
                 ? []
-                : List<Datum>.from(json["data"]?.map((x) => Datum.fromJson(x))),
+                : List<TvShowData>.from(
+                  json["data"]!.map((x) => TvShowData.fromJson(x)),
+                ),
         total: json["total"],
       );
 
@@ -20,80 +34,75 @@ class TvShowListModel {
   };
 }
 
-class Datum {
+class TvShowData {
   final int? id;
   final String? title;
   final DateTime? releaseDate;
-  final String? boxOffice;
-  final int? duration;
+  final DateTime? lastAiredDate;
+  final int? season;
+  final int? numberEpisodes;
   final String? overview;
   final String? coverUrl;
   final String? trailerUrl;
   final String? directedBy;
   final int? phase;
   final Saga? saga;
-  final int? chronology;
-  final int? postCreditScenes;
   final String? imdbId;
-  final DateTime? updatedAt;
 
-  Datum({
+  TvShowData({
     this.id,
     this.title,
     this.releaseDate,
-    this.boxOffice,
-    this.duration,
+    this.lastAiredDate,
+    this.season,
+    this.numberEpisodes,
     this.overview,
     this.coverUrl,
     this.trailerUrl,
     this.directedBy,
     this.phase,
     this.saga,
-    this.chronology,
-    this.postCreditScenes,
     this.imdbId,
-    this.updatedAt,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory TvShowData.fromJson(Map<String, dynamic> json) => TvShowData(
     id: json["id"],
     title: json["title"],
     releaseDate:
         json["release_date"] == null
             ? null
             : DateTime.parse(json["release_date"]),
-    boxOffice: json["box_office"],
-    duration: json["duration"],
+    lastAiredDate:
+        json["last_aired_date"] == null
+            ? null
+            : DateTime.parse(json["last_aired_date"]),
+    season: json["season"],
+    numberEpisodes: json["number_episodes"],
     overview: json["overview"],
     coverUrl: json["cover_url"],
     trailerUrl: json["trailer_url"],
     directedBy: json["directed_by"],
     phase: json["phase"],
-    saga: sagaValues.map[json["saga"]] ?? Saga.INFINITY_SAGA,
-    chronology: json["chronology"],
-    postCreditScenes: json["post_credit_scenes"],
+    saga: json["sage"] == null ? null : sagaValues.map[json["saga"]],
     imdbId: json["imdb_id"],
-    updatedAt:
-        json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "title": title,
     "release_date":
-        "${releaseDate?.year.toString().padLeft(4, '0')}-${releaseDate?.month.toString().padLeft(2, '0')}-${releaseDate?.day.toString().padLeft(2, '0')}",
-    "box_office": boxOffice,
-    "duration": duration,
+        "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}",
+    "last_aired_date":
+        "${lastAiredDate!.year.toString().padLeft(4, '0')}-${lastAiredDate!.month.toString().padLeft(2, '0')}-${lastAiredDate!.day.toString().padLeft(2, '0')}",
+    "season": season,
+    "number_episodes": numberEpisodes,
     "overview": overview,
     "cover_url": coverUrl,
     "trailer_url": trailerUrl,
     "directed_by": directedBy,
     "phase": phase,
     "saga": sagaValues.reverse[saga],
-    "chronology": chronology,
-    "post_credit_scenes": postCreditScenes,
     "imdb_id": imdbId,
-    "updated_at": updatedAt?.toIso8601String(),
   };
 }
 

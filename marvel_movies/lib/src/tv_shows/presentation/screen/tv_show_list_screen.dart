@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../core/extensions/build_context_extension.dart';
+import '../../../../core/routes/routes.dart';
+import '../../../../core/widgets/custom_circular_indicator.dart';
 import '../../../../core/widgets/custom_grid_tile_widget.dart';
 import '../../../../core/widgets/custom_grid_view_builder_widget.dart';
-import '../../data/repository/tv_show_list_repository.dart';
+import '../../../../core/widgets/no_data_found_widget.dart';
+import '../provider/tv_shows_provider.dart';
 
 class TvShowScreen extends StatefulWidget {
   const TvShowScreen({super.key});
@@ -15,31 +20,41 @@ class _TvShowScreenState extends State<TvShowScreen> {
   @override
   void initState() {
     super.initState();
-    TvShowListRepository()
-        .fetchTvShowList()
-        .then((value) => print(value))
-        .catchError((error) => print(error));
+    fetchData();
+  }
+
+  void fetchData() {
+    Future.delayed(Duration.zero, () {
+      if (mounted) {
+        Provider.of<TvShowsProvider>(context, listen: false).getData(context);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: TvShowListRepository().fetchTvShowList(),
-        builder: (context, snapshot) {
-          print("snapshot.data ${snapshot.data}");
-          return CustomGridViewBuilderWidget(
-            items: [
-              "https://res.cloudinary.com/augustomarcelo/image/upload/v1676219587/mcuapi/gallery/tv_shows/wandavision/posters/1.jpg",
-            ],
-            itemBuilder:
-                (_, index) => CustomGridTileWidget(
-                  onTap: () {},
-                  coverUrl:
-                      "https://res.cloudinary.com/augustomarcelo/image/upload/v1676219587/mcuapi/gallery/tv_shows/wandavision/posters/1.jpg",
-                  id: 1,
-                ),
-          );
+      body: Consumer<TvShowsProvider>(
+        builder: (context, tvsShow, child) {
+          return tvsShow.isLoading == true
+              ? const Center(child: CustomCircularIndicator())
+              : tvsShow.tvShowModel.isEmpty
+              ? NoDataFoundWidget()
+              : CustomGridViewBuilderWidget(
+                items: tvsShow.tvShowModel,
+                itemBuilder: (_, index) {
+                  var tvShowData = tvsShow.tvShowModel[index];
+                  return CustomGridTileWidget(
+                    onTap:
+                        () => context.navigator.pushNamed(
+                          Routes.tvShowsDetails,
+                          arguments: tvShowData,
+                        ),
+                    coverUrl: tvShowData.coverUrl ?? "",
+                    id: tvShowData.id ?? 0,
+                  );
+                },
+              );
         },
       ),
     );

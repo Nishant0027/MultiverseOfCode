@@ -1,37 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:marvel_movies/core/theme/custom_theme_data.dart';
 import 'package:provider/provider.dart';
 
-import '../core/constants/app_constants/app_constants.dart';
+import '../core/routes/generated_route.dart';
 import '../core/routes/routes.dart';
 import '../src/movies/presentation/provider/provider.dart';
+import '../src/tv_shows/presentation/provider/tv_shows_provider.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => McuDataProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => McuDataProvider()),
+        ChangeNotifierProvider(create: (context) => TvShowsProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: AppConstants.backgroundGrey,
-          pageTransitionsTheme: PageTransitionsTheme(
-            builders: {
-              TargetPlatform.android: FadeForwardsPageTransitionsBuilder(),
-              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-            },
-          ),
-          tabBarTheme: TabBarThemeData(
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white70,
-            indicatorColor: Colors.indigo,
-          ),
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.blue,
-          ).copyWith(secondary: Colors.transparent),
-        ),
-        routes: Routes.routes,
+        theme: CustomThemeData.themeData,
+        initialRoute: Routes.homeScreen,
+        onGenerateRoute: onGenerateRoute,
       ),
     );
   }

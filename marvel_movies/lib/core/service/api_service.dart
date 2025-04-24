@@ -22,15 +22,11 @@ class ApiService {
       return await _dio.get(url);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();
-      if (e.response?.statusCode == 401) {
-        // await _onLogout();
-      } else {
-        Utilities.customSnackBar(
-          context: NavigationService.navigatorKey.currentContext!,
-          content: errorMessage,
-          isSucess: false,
-        );
-      }
+      Utilities.customSnackBar(
+        context: NavigationService.navigatorKey.currentContext!,
+        content: errorMessage,
+        isSucess: false,
+      );
       return null;
     }
   }
@@ -66,18 +62,12 @@ class ApiService {
       );
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();
-      if (e.response?.statusCode == 401) {
-        // await _onLogout();
-      } else {
-        Utilities.customSnackBar(
-          context: NavigationService.navigatorKey.currentContext!,
-          content: errorMessage,
-          isSucess: false,
-        );
-      }
+      Utilities.customSnackBar(
+        context: NavigationService.navigatorKey.currentContext!,
+        content: errorMessage,
+        isSucess: false,
+      );
       return null;
     }
   }
-
-  
 }
