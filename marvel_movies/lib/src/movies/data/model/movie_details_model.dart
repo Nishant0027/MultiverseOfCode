@@ -1,17 +1,5 @@
-// To parse this JSON data, do
-//
-//     final mcuRecommendation = mcuRecommendationFromJson(jsonString);
-
-import 'dart:convert';
-
-McuRecommendation mcuRecommendationFromJson(String str) =>
-    McuRecommendation.fromJson(json.decode(str));
-
-String mcuRecommendationToJson(McuRecommendation data) =>
-    json.encode(data.toJson());
-
-class McuRecommendation {
-  McuRecommendation({
+class MovieDetailsModel {
+  MovieDetailsModel({
     required this.id,
     required this.title,
     required this.releaseDate,
@@ -43,10 +31,10 @@ class McuRecommendation {
   int? chronology;
   int? postCreditScenes;
   String? imdbId;
-  List<McuRecommendation>? relatedMovies;
+  List<MovieDetailsModel>? relatedMovies;
 
-  factory McuRecommendation.fromJson(Map<String, dynamic> json) =>
-      McuRecommendation(
+  factory MovieDetailsModel.fromJson(Map<String, dynamic> json) =>
+      MovieDetailsModel(
         id: json["id"],
         title: json["title"],
         releaseDate:
@@ -67,9 +55,9 @@ class McuRecommendation {
         relatedMovies:
             json["related_movies"] == null
                 ? null
-                : List<McuRecommendation>.from(
+                : List<MovieDetailsModel>.from(
                   json["related_movies"].map(
-                    (x) => McuRecommendation.fromJson(x),
+                    (x) => MovieDetailsModel.fromJson(x),
                   ),
                 ),
       );

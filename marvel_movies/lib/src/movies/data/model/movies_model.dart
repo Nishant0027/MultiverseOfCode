@@ -2,17 +2,19 @@
 //
 //     final mcuModel = mcuModelFromJson(jsonString);
 
-class McuModel {
-  final List<Data> data;
+class MoviesModel {
+  final List<MoviesListData> data;
   final int? total;
 
-  McuModel({required this.data, this.total});
+  MoviesModel({required this.data, this.total});
 
-  factory McuModel.fromJson(Map<String, dynamic> json) => McuModel(
+  factory MoviesModel.fromJson(Map<String, dynamic> json) => MoviesModel(
     data:
         json["data"] == null
             ? []
-            : List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+            : List<MoviesListData>.from(
+              json["data"].map((x) => MoviesListData.fromJson(x)),
+            ),
     total: json["total"],
   );
 
@@ -22,7 +24,7 @@ class McuModel {
   };
 }
 
-class Data {
+class MoviesListData {
   final int? id;
   final String? title;
   final DateTime? releaseDate;
@@ -39,7 +41,7 @@ class Data {
   final String? imdbId;
   final DateTime? updatedAt;
 
-  Data({
+  MoviesListData({
     this.id,
     this.title,
     this.releaseDate,
@@ -57,7 +59,7 @@ class Data {
     this.updatedAt,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory MoviesListData.fromJson(Map<String, dynamic> json) => MoviesListData(
     id: json["id"],
     title: json["title"],
     releaseDate:

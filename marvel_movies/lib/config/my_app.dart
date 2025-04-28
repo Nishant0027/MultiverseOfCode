@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marvel_movies/core/theme/custom_theme_data.dart';
+import '../core/theme/custom_theme_data.dart';
 import 'package:provider/provider.dart';
 
 import '../core/routes/generated_route.dart';

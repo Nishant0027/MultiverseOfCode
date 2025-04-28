@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class ImageWrapper extends StatelessWidget {
   final String url;
-  const ImageWrapper({super.key, required this.url});
+  final Widget Function(BuildContext, Object, StackTrace?)? errorBuilder;
+  const ImageWrapper({super.key, required this.url, this.errorBuilder});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +23,11 @@ class ImageWrapper extends StatelessWidget {
                               : null,
                     ),
                   ),
-      errorBuilder: (_, error, stackTrace) {
-        return const Center(child: Icon(Icons.error, color: Colors.red));
-      },
+      errorBuilder:
+          errorBuilder ??
+          (_, error, stackTrace) {
+            return const Center(child: Icon(Icons.error, color: Colors.red));
+          },
     );
   }
 }

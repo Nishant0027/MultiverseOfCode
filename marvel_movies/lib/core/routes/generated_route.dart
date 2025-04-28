@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../src/home/presentation/screen/home_screen.dart';
-import '../../src/movies/data/model/mcu_model.dart';
 import '../../src/movies/presentation/screen/movie_details.dart';
 import '../../src/tv_shows/data/model/tv_show_list_model.dart';
 import '../../src/tv_shows/tv_show_detail/presentation/screen/tv_show_detail_screen.dart';
@@ -16,9 +15,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         settings: settings,
       );
     case Routes.movieDetails:
-      final moviesData = settings.arguments as Data;
+      final args = settings.arguments as int;
       return MaterialPageRoute(
-        builder: (_) => MoviesDetailsScreen(moviesData: moviesData),
+        builder: (_) => MoviesDetailsScreen(id: args),
         settings: settings,
       );
     case Routes.tvShowsDetails:

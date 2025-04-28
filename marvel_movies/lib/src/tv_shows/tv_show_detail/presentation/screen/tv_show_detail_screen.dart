@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:marvel_movies/core/extensions/date_extension.dart';
-import 'package:marvel_movies/src/movies/presentation/widget/movie_title_widget.dart';
 
 import '../../../../../core/constants/app_constants/app_constants.dart';
+import '../../../../../core/extensions/date_extension.dart';
+import '../../../../movies/presentation/widget/movie_title_widget.dart';
 import '../../../../movies/presentation/widget/title_text_widget.dart';
 import '../../../data/model/tv_show_list_model.dart';
 import '../widget/background_structure_widget.dart';

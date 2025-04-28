@@ -19,9 +19,9 @@ class _MovieGridState extends State<MovieGrid> {
     return Consumer<McuDataProvider>(
       builder: (context, mcuProvider, child) {
         return CustomGridViewBuilderWidget(
-          items: mcuProvider.mcuModel,
+          items: mcuProvider.moviesListData,
           itemBuilder: (context, i) {
-            var mcuData = mcuProvider.mcuModel;
+            var mcuData = mcuProvider.moviesListData;
 
             return CustomGridTileWidget(
               id: mcuData[i].id ?? 0,
@@ -30,7 +30,7 @@ class _MovieGridState extends State<MovieGrid> {
                 Navigator.pushNamed(
                   context,
                   Routes.movieDetails,
-                  arguments: mcuData[i],
+                  arguments: mcuData[i].id,
                 );
               },
             );

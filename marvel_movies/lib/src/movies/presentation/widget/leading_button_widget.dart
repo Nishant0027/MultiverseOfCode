@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:marvel_movies/core/extensions/color_extension.dart';
+
+import '../../../../core/extensions/color_extension.dart';
 
 class LeadingButtonWidget extends StatelessWidget {
   final void Function()? onTap;

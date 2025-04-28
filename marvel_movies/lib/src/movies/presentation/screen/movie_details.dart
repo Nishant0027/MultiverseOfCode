@@ -5,18 +5,19 @@ import '../../../../core/constants/app_constants/app_constants.dart';
 import '../../../../core/extensions/date_extension.dart';
 import '../../../../core/extensions/int_extension.dart';
 import '../../../../core/extensions/string_extension.dart';
-import '../../../../core/routes/routes.dart';
 import '../../../../core/utility/utilities.dart';
-import '../../../../core/widgets/custom_circular_indicator.dart';
-import '../../data/model/mcu_model.dart';
+import '../../../../core/widgets/custom_list_view_builder_widget.dart';
+import '../../../tv_shows/tv_show_detail/presentation/widget/background_structure_widget.dart';
+import '../../data/model/movies_model.dart';
 import '../provider/provider.dart';
-import '../widget/leading_button_widget.dart';
 import '../widget/movie_title_widget.dart';
+import '../widget/recommended_movies/recommended_movies_listtile_widget.dart';
+import '../widget/recommended_movies/recommended_movies_skeleton_loader.dart';
 import '../widget/title_text_widget.dart';
 
 class MoviesDetailsScreen extends StatefulWidget {
-  final Data moviesData;
-  const MoviesDetailsScreen({super.key, required this.moviesData});
+  final int id;
+  const MoviesDetailsScreen({super.key, required this.id});
 
   @override
   State<MoviesDetailsScreen> createState() => _MoviesDetailsScreenState();
@@ -24,14 +25,14 @@ class MoviesDetailsScreen extends StatefulWidget {
 
 class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
   int id = 0;
-  int index = 0;
-  Data provider = Data();
+
+  MoviesListData provider = MoviesListData();
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      id = widget.moviesData.id ?? 0;
+      id = widget.id;
 
       Provider.of<McuDataProvider>(context, listen: false).getRecent(id);
 
@@ -39,7 +40,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
       provider = Provider.of<McuDataProvider>(
         context,
         listen: false,
-      ).mcuModel.singleWhere((element) {
+      ).moviesListData.singleWhere((element) {
         return element.id == id;
       });
     });
@@ -50,52 +51,19 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
     final deviceData = MediaQuery.of(context);
 
     final recommendedMovies =
-        Provider.of<McuDataProvider>(context).mcuRecommendation;
+        Provider.of<McuDataProvider>(context).movieDetails;
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
-        // Navigator.pop(context);
         Provider.of<McuDataProvider>(
           context,
           listen: false,
-        ).setMcuRecommendation([]);
+        ).setMovieDetails([]);
       },
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        body: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                stretch: true,
-                elevation: 0,
-                leading: LeadingButtonWidget(
-                  onTap: () {
-                    Provider.of<McuDataProvider>(
-                      context,
-                      listen: false,
-                    ).setMcuRecommendation([]);
-                    Navigator.pop(context);
-                  },
-                ),
-                backgroundColor: Colors.transparent,
-                expandedHeight: deviceData.size.height / 1.3,
-                flexibleSpace: FlexibleSpaceBar(
-                  background:
-                      isCoverUrlEmpty
-                          ? SizedBox.shrink()
-                          : Image.network(
-                            provider.coverUrl ?? '',
-                            errorBuilder:
-                                (context, error, stackTrace) => Center(
-                                  child: Image.asset(
-                                    AppConstants.placeHolderAsset,
-                                  ),
-                                ),
-                            fit: BoxFit.cover,
-                          ),
-                ),
-              ),
-            ];
-          },
+        body: BackgroundStructureWidget(
+          title: provider.title ?? ' ',
+          coverUrl: provider.coverUrl ?? "",
           body: SingleChildScrollView(
             child: SafeArea(
               child: Column(
@@ -189,51 +157,18 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                     width: deviceData.size.width,
                     margin: const EdgeInsets.symmetric(vertical: 20),
                     child:
-                        Provider.of<McuDataProvider>(context).isListLoading ==
+                        Provider.of<McuDataProvider>(
+                                  context,
+                                ).isMovieDetailsLoading ==
                                 true
-                            ? const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [CustomCircularIndicator()],
-                            )
-                            : ListView.builder(
-                              shrinkWrap: true,
+                            ? RecommendedMoviesSkeletonLoader()
+                            : CustomListViewBuilderWidget(
                               scrollDirection: Axis.horizontal,
-                              itemCount: recommendedMovies.length,
+                              items: recommendedMovies,
                               itemBuilder: (context, i) {
-                                return InkWell(
-                                  onTap: () {
-                                    Navigator.pushReplacementNamed(
-                                      context,
-                                      Routes.movieDetails,
-                                      arguments: {
-                                        'id': recommendedMovies[i].id,
-                                      },
-                                    );
-                                  },
-                                  child: Container(
-                                    height: 200,
-                                    width: 150,
-                                    margin: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: FadeInImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                          recommendedMovies[i].coverUrl,
-                                        ),
-                                        placeholder: const AssetImage(
-                                          AppConstants.placeHolderAsset2,
-                                        ),
-                                      ),
-                                      // BlurHash(
-                                      //   hash: AppConstants.imageHashValue,
-                                      //   image: recommendatedMovies[i]
-                                      //       .coverUrl,
-                                      // ),
-                                    ),
-                                  ),
+                                return RecommendedMoviesListTileWidget(
+                                  id: recommendedMovies[i].id,
+                                  recommendedMovies: recommendedMovies[i],
                                 );
                               },
                             ),

@@ -8,14 +8,19 @@ class BackgroundStructureWidget extends StatelessWidget {
   final String coverUrl;
   final int? season;
   final Widget body;
+  final Widget? leading;
+  final bool pinned;
+  final bool stretch;
 
   const BackgroundStructureWidget({
     super.key,
-
     required this.body,
     required this.title,
     required this.coverUrl,
     this.season,
+    this.leading,
+    this.pinned = true,
+    this.stretch = false,
   });
 
   @override
@@ -26,9 +31,10 @@ class BackgroundStructureWidget extends StatelessWidget {
           SliverAppBar(
             automaticallyImplyLeading: true,
             expandedHeight: context.mediaQuerySizeOf.height * 0.7,
-            pinned: true,
-            stretch: true,
+            pinned: pinned,
+            stretch: stretch,
             elevation: 0,
+            leading: leading,
             flexibleSpace: LayoutBuilder(
               builder: (context, constraints) {
                 // Calculate whether the app bar is collapsed
@@ -38,11 +44,19 @@ class BackgroundStructureWidget extends StatelessWidget {
 
                 return FlexibleSpaceBar(
                   collapseMode: CollapseMode.parallax,
+                  titlePadding: EdgeInsets.only(
+                    left: title.length > 20 ? 50 : 16,
+                    bottom: 16,
+                    right: 16,
+                  ),
                   title:
                       isCollapsed
-                          ? Text(
-                            title,
-                            style: const TextStyle(color: Colors.white),
+                          ? FittedBox(
+                            child: Text(
+                              maxLines: 1,
+                              title,
+                              style: const TextStyle(color: Colors.white),
+                            ),
                           )
                           : null,
                   background:

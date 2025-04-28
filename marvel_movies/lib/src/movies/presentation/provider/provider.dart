@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../data/model/mcu_model.dart';
-import '../../data/model/mcu_recommendation_model.dart';
-import '../../data/repostiory/mcu_recommend_service.dart';
+import '../../data/model/movie_details_model.dart';
+import '../../data/model/movies_model.dart';
 import '../../data/repostiory/mcu_service.dart';
+import '../../data/repostiory/movie_details_repository.dart';
 
 class McuDataProvider with ChangeNotifier {
   bool _isLoading = false;
@@ -15,18 +15,18 @@ class McuDataProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<Data> _mcuModelData = [];
+  List<MoviesListData> _moviesList = [];
 
-  List<Data> get mcuModel => _mcuModelData;
-  setMcuModelData(List<Data> mcuModel) {
-    _mcuModelData = mcuModel;
+  List<MoviesListData> get moviesListData => _moviesList;
+  setMoviesListData(List<MoviesListData> moviesList) {
+    _moviesList = moviesList;
     notifyListeners();
   }
 
   Future getData(BuildContext context) async {
     setLoading(true);
 
-    await getMcuData(context).then((value) {
+    await fetchMoviesList(context).then((value) {
       // value
       //     .map(
       //       ((e) => DBHelper().insertData(
@@ -51,61 +51,35 @@ class McuDataProvider with ChangeNotifier {
       //     .toList();
 
       // DBHelper().retriveData().then((value) {
-      // if (value != null) {
-      setLoading(false);
 
-      setMcuModelData(
-        value
-            .map(
-              (e) => Data(
-                id: e.id,
-                title: e.title,
-                releaseDate: e.releaseDate,
-                boxOffice: e.boxOffice,
-                duration: e.duration,
-                overview: e.overview,
-                coverUrl: e.coverUrl,
-                trailerUrl: e.trailerUrl,
-                directedBy: e.directedBy,
-                phase: e.phase,
-                saga: e.saga,
-                chronology: e.chronology,
-                postCreditScenes: e.postCreditScenes,
-                imdbId: e.imdbId,
-              ),
-            )
-            .toList(),
-      );
-      // }
-      // });
+      setLoading(false);
+      setMoviesListData(value);
     });
     notifyListeners();
   }
 
-  List<McuRecommendation> _mcuRecommendation = [];
-  List<McuRecommendation> get mcuRecommendation => _mcuRecommendation;
+  List<MovieDetailsModel> _movieDetails = [];
+  List<MovieDetailsModel> get movieDetails => _movieDetails;
 
-  setMcuRecommendation(List<McuRecommendation> mcuList) {
-    _mcuRecommendation = mcuList;
+  setMovieDetails(List<MovieDetailsModel> mcuList) {
+    _movieDetails = mcuList;
     notifyListeners();
   }
 
-  bool _isListLoading = false;
+  bool _isMovieDetailsLoading = false;
 
-  bool get isListLoading => _isListLoading;
+  bool get isMovieDetailsLoading => _isMovieDetailsLoading;
 
-  void setListLoading(bool isListLoading) {
-    _isListLoading = isListLoading;
+  void setMovieDetailsLoading(bool isLoading) {
+    _isMovieDetailsLoading = isLoading;
     notifyListeners();
   }
 
   Future<void> getRecent(int id) async {
-    setListLoading(true);
-    await getMcuRecommendation(id).then((value) {
-      setListLoading(false);
-      if (value != null) {
-        setMcuRecommendation(value);
-      }
+    setMovieDetailsLoading(true);
+    await fetchMovieDetails(id).then((value) {
+      setMovieDetailsLoading(false);
+      setMovieDetails(value);
     });
     notifyListeners();
   }

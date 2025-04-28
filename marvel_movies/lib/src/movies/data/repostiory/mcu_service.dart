@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import '../../../../config/environment_config.dart';
 import '../../../../core/constants/api_constants/api_queries.dart';
 import '../../../../core/service/api_service.dart';
-import '../model/mcu_model.dart';
+import '../model/movies_model.dart';
 
-Future<List<Data>> getMcuData(BuildContext context) async {
+Future<List<MoviesListData>> fetchMoviesList(BuildContext context) async {
   String url = AppEnvironment.serviceBaseUrl + ApiQueries.moviesListQuery();
-  List<Data> mcuModel = [];
+  List<MoviesListData> moviesList = [];
 
   await ApiService.getService(url: url).then((response) {
     try {
       if (response != null && response.statusCode == 200) {
-        var res = McuModel.fromJson(response.data);
-        mcuModel = res.data;
+        var res = MoviesModel.fromJson(response.data);
+        moviesList = res.data;
       }
     } catch (e) {
       debugPrint("EXCEPTION : $e");
     }
   });
-  return mcuModel;
+  return moviesList;
 }
