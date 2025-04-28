@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/extensions/build_context_extension.dart';
 import '../../../../core/routes/routes.dart';
-import '../../../../core/widgets/custom_circular_indicator.dart';
 import '../../../../core/widgets/custom_grid_tile_widget.dart';
 import '../../../../core/widgets/custom_grid_view_builder_widget.dart';
 import '../../../../core/widgets/no_data_found_widget.dart';
+import '../../../movies/presentation/widget/movies_list_skeleton_loader.dart';
 import '../provider/tv_shows_provider.dart';
 
 class TvShowScreen extends StatefulWidget {
@@ -37,7 +37,7 @@ class _TvShowScreenState extends State<TvShowScreen> {
       body: Consumer<TvShowsProvider>(
         builder: (context, tvsShow, child) {
           return tvsShow.isLoading == true
-              ? const Center(child: CustomCircularIndicator())
+              ? MoviesListSkeletonLoader()
               : tvsShow.tvShowModel.isEmpty
               ? NoDataFoundWidget()
               : CustomGridViewBuilderWidget(

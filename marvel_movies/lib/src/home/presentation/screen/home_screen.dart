@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               TabBar(
-                indicatorAnimation: TabIndicatorAnimation.elastic,
+                indicatorPadding: EdgeInsets.all(5),
                 tabs: [
                   Tab(
                     icon: const Icon(Icons.movie_creation_outlined),

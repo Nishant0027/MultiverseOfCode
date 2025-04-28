@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_constants/app_constants.dart';
 import '../../../../../core/extensions/date_extension.dart';
+import '../../../../movies/presentation/widget/leading_button_widget.dart';
 import '../../../../movies/presentation/widget/movie_title_widget.dart';
 import '../../../../movies/presentation/widget/title_text_widget.dart';
 import '../../../data/model/tv_show_list_model.dart';
@@ -18,8 +19,9 @@ class TvShowDetailScreen extends StatelessWidget {
         title: tvShowData.title ?? "",
         coverUrl: tvShowData.coverUrl ?? "",
         season: tvShowData.season,
+        leading: LeadingButtonWidget(),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
           child: SingleChildScrollView(
             physics: NeverScrollableScrollPhysics(),
             child: Column(

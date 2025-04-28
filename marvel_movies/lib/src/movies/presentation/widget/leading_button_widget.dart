@@ -18,7 +18,7 @@ class LeadingButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+      padding: const EdgeInsets.all(10),
       child: GestureDetector(
         onTap: onTap ?? () => Navigator.pop(context),
         child: Container(

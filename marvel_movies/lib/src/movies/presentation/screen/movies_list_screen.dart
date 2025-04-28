@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/widgets/custom_circular_indicator.dart';
 import '../provider/provider.dart';
 import '../widget/movie_grid.dart';
+import '../widget/movies_list_skeleton_loader.dart';
 
 class MoviesListScreen extends StatefulWidget {
   const MoviesListScreen({super.key});
@@ -32,7 +32,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
     return Scaffold(
       body:
           Provider.of<McuDataProvider>(context).isLoading == true
-              ? Center(child: CustomCircularIndicator())
+              ? MoviesListSkeletonLoader()
               : MovieGrid(),
     );
   }

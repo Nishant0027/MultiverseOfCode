@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 
 import '../constants/app_constants/app_constants.dart';
+import '../utility/image_wrapper.dart';
 
 class CustomGridTileWidget extends StatelessWidget {
   final Function() onTap;
@@ -33,11 +33,12 @@ class CustomGridTileWidget extends StatelessWidget {
                   // tag: 'movie${mcuData[i].id}',
                   // tag: 'movie $id',
                   // child:
-                  BlurHash(
-                    imageFit: BoxFit.fill,
-                    hash: AppConstants.imageHashValue,
-                    image: coverUrl,
-                  ),
+                  // BlurHash(
+                  //   imageFit: BoxFit.fill,
+                  //   hash: AppConstants.imageHashValue,
+                  //   image: coverUrl,
+                  // ),
+                  ImageWrapper(url: coverUrl),
           // ),
 
           //     FadeInImage(

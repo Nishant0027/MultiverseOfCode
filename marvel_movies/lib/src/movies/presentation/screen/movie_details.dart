@@ -10,6 +10,7 @@ import '../../../../core/widgets/custom_list_view_builder_widget.dart';
 import '../../../tv_shows/tv_show_detail/presentation/widget/background_structure_widget.dart';
 import '../../data/model/movies_model.dart';
 import '../provider/provider.dart';
+import '../widget/leading_button_widget.dart';
 import '../widget/movie_title_widget.dart';
 import '../widget/recommended_movies/recommended_movies_listtile_widget.dart';
 import '../widget/recommended_movies/recommended_movies_skeleton_loader.dart';
@@ -62,6 +63,7 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         body: BackgroundStructureWidget(
+          leading: LeadingButtonWidget(),
           title: provider.title ?? ' ',
           coverUrl: provider.coverUrl ?? "",
           body: SingleChildScrollView(

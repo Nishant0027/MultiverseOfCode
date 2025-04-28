@@ -45,10 +45,11 @@ class BackgroundStructureWidget extends StatelessWidget {
                 return FlexibleSpaceBar(
                   collapseMode: CollapseMode.parallax,
                   titlePadding: EdgeInsets.only(
-                    left: title.length > 20 ? 50 : 16,
+                    left: title.length > 20 ? 60 : 16,
                     bottom: 16,
                     right: 16,
                   ),
+                  centerTitle: true,
                   title:
                       isCollapsed
                           ? FittedBox(
