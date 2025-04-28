@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/widgets/custom_circular_indicator.dart';
 import '../provider/provider.dart';
-import 'movie_grid.dart';
+import '../widget/movie_grid.dart';
 
 class MoviesListScreen extends StatefulWidget {
   const MoviesListScreen({super.key});
