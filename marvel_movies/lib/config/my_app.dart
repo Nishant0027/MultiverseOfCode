@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../core/routes/generated_route.dart';
 import '../core/routes/routes.dart';
 import '../src/movies/presentation/provider/provider.dart';
-import '../src/tv_shows/presentation/provider/tv_shows_provider.dart';
+import '../src/tv_shows/tv_show_listing/presentation/provider/tv_shows_provider.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

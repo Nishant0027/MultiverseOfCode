@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../src/home/presentation/screen/home_screen.dart';
 import '../../src/movies/presentation/screen/movie_details.dart';
-import '../../src/tv_shows/data/model/tv_show_list_model.dart';
+import '../../src/tv_shows/tv_show_listing/data/model/tv_show_list_model.dart';
 import '../../src/tv_shows/tv_show_detail/presentation/screen/tv_show_detail_screen.dart';
 import 'page_routing_error_widget.dart';
 import 'routes.dart';

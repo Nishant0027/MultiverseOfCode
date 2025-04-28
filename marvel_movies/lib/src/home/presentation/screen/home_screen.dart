@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../movies/presentation/provider/provider.dart';
 import '../../../movies/presentation/screen/movies_list_screen.dart';
-import '../../../tv_shows/presentation/screen/tv_show_list_screen.dart';
+import '../../../tv_shows/tv_show_listing/presentation/screen/tv_show_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

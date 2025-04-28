@@ -5,7 +5,7 @@ import '../../../../../core/extensions/date_extension.dart';
 import '../../../../movies/presentation/widget/leading_button_widget.dart';
 import '../../../../movies/presentation/widget/movie_title_widget.dart';
 import '../../../../movies/presentation/widget/title_text_widget.dart';
-import '../../../data/model/tv_show_list_model.dart';
+import '../../../tv_show_listing/data/model/tv_show_list_model.dart';
 import '../widget/background_structure_widget.dart';
 
 class TvShowDetailScreen extends StatelessWidget {
