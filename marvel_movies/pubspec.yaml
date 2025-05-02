@@ -41,7 +41,7 @@ dependencies:
   path: ^1.9.1
   # State management
   provider: ^6.1.4
-  flutter_bloc: ^9.1.0
+  flutter_bloc: ^9.1.1
   # Offline database
   # sqflite: ^2.4.2
   # Video Player

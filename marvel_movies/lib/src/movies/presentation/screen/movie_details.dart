@@ -167,12 +167,10 @@ class _MoviesDetailsScreenState extends State<MoviesDetailsScreen> {
                             : CustomListViewBuilderWidget(
                               scrollDirection: Axis.horizontal,
                               items: recommendedMovies,
-                              itemBuilder: (context, i) {
-                                return RecommendedMoviesListTileWidget(
+                              itemBuilder: (context, i) => RecommendedMoviesListTileWidget(
                                   id: recommendedMovies[i].id,
                                   recommendedMovies: recommendedMovies[i],
-                                );
-                              },
+                                ),
                             ),
                   ),
                 ],

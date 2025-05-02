@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/widgets/no_data_found_widget.dart';
 import '../provider/provider.dart';
 import '../widget/movie_grid.dart';
 import '../widget/movies_list_skeleton_loader.dart';
@@ -29,11 +30,17 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:
-          Provider.of<McuDataProvider>(context).isLoading == true
-              ? MoviesListSkeletonLoader()
-              : MovieGrid(),
+    return Consumer<McuDataProvider>(
+      builder: (context, moviesData, child) {
+        return Scaffold(
+          body:
+              moviesData.isLoading == true
+                  ? MoviesListSkeletonLoader()
+                  : moviesData.moviesListData.isEmpty
+                  ? const NoDataFoundWidget()
+                  : MovieGrid(),
+        );
+      },
     );
   }
 }

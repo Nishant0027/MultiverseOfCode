@@ -34,11 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     );
     return Scaffold(
-      body:
-      // Provider.of<McuDataProvider>(context).isLoading == true
-      //     ? const Center(child: CustomCircularIndicator())
-      //     : const MovieGrid(),
-      SafeArea(
+      body: SafeArea(
+        bottom: false,
         child: DefaultTabController(
           length: 2,
           child: Column(

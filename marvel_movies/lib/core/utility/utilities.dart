@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../extensions/build_context_extension.dart';
+
 class Utilities {
   Utilities._();
 
@@ -21,7 +23,7 @@ class Utilities {
     required bool isSucess,
     Duration? snackBarDuration,
   }) {
-    ScaffoldMessenger.of(context)
+    context.scaffoldMessenger
       ..clearSnackBars()
       ..showSnackBar(
         SnackBar(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/app_constants/app_constants.dart';
-import '../utility/image_wrapper.dart';
+import 'image_wrapper_widget.dart';
 
 class CustomGridTileWidget extends StatelessWidget {
   final Function() onTap;

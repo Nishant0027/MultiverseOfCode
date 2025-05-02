@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/extensions/build_context_extension.dart';
-import '../../../../../core/utility/image_wrapper.dart';
+import '../../../../../core/widgets/image_wrapper_widget.dart';
 
 class BackgroundStructureWidget extends StatelessWidget {
   final String title;

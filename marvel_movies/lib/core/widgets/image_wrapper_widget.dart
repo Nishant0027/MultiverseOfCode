@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'custom_circular_indicator.dart';
+
 class ImageWrapper extends StatelessWidget {
   final String url;
   final Widget Function(BuildContext, Object, StackTrace?)? errorBuilder;
@@ -15,7 +17,7 @@ class ImageWrapper extends StatelessWidget {
               loadingProgress == null
                   ? child
                   : Center(
-                    child: CircularProgressIndicator.adaptive(
+                    child: CustomCircularIndicator(
                       value:
                           loadingProgress.expectedTotalBytes != null
                               ? loadingProgress.cumulativeBytesLoaded /
